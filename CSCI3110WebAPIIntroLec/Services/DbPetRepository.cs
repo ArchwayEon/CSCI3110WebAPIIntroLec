@@ -18,9 +18,36 @@ public class DbPetRepository : IPetRepository
         return pet;
     }
 
+    public void Delete(int id)
+    {
+        var petToDelete = Read(id);
+        if (petToDelete != null)
+        {
+            _db.Pets.Remove(petToDelete);
+            _db.SaveChanges();
+        }
+    }
+
+    public Pet? Read(int id)
+    {
+        return _db.Pets.Find(id);
+    }
+
     public ICollection<Pet> ReadAll()
     {
         return _db.Pets.ToList();
     }
+
+    public void Update(int oldId, Pet updatedPet)
+    {
+        var petToUpdate = Read(oldId);
+        if (petToUpdate != null)
+        {
+            petToUpdate.Name = updatedPet.Name;
+            petToUpdate.Weight = updatedPet.Weight;
+            _db.SaveChanges();
+        }
+    }
+
 }
 

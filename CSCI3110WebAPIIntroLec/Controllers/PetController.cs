@@ -31,4 +31,29 @@ public class PetController : ControllerBase
         return CreatedAtAction("Get", new { id = pet.Id }, pet);
     }
 
+    [HttpGet("one/{id}")]
+    public IActionResult Get(int id)
+    {
+        var pet = _petRepo.Read(id);
+        if (pet == null)
+        {
+            return NotFound();
+        }
+        return Ok(pet);
+    }
+
+    [HttpPut("update")]
+    public IActionResult Put([FromForm] Pet pet)
+    {
+        _petRepo.Update(pet.Id, pet);
+        return NoContent(); // 204 as per HTTP specification
+    }
+
+    [HttpDelete("delete/{id}")]
+    public IActionResult Delete(int id)
+    {
+        _petRepo.Delete(id);
+        return NoContent(); // 204 as per HTTP specification
+    }
+
 }
