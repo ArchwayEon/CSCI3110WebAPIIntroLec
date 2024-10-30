@@ -14,7 +14,7 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(
        builder =>
        {
-           builder.WithOrigins("https://localhost:7027")
+           builder.WithOrigins("https://web.postman.co")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
        });
